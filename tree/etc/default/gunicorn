@@ -1,0 +1,8 @@
+# Should I run on boot?
+RUN=no
+
+# Where are configuration files?
+CONF_DIR=/etc/gunicorn
+
+# Which configuration file should I run?
+CONFIGS="example"

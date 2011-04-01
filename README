@@ -1,0 +1,66 @@
+gunicorn-init
+=============
+
+This prject provides an init script for the [Gunicorn](http://gunicorn.org)
+project.
+
+You can run multiple python web application by setting multiple configuration
+files.
+
+
+
+Basic Usage
+-----------
+
+You wil find in the tree directory an example of how to use this script.
+
+For instance each file in the `CONF_DIR` directory, actually `/etc/gunicorn`,
+represents a web application. For each configuration file, the PID of the master
+Gunicorn process is stored in `/var/run/gunicorn/<conf>.pid` and, logs are
+printed to `/var/log/gunicorn/<conf>.log`.
+
+
+### Script configuration
+
+The script configuration file is `/etc/default/gunicorn`. You have tree
+variables to set.
+
+ * `RUN <yes|no>`, is the script should run on boot ?
+ * `CONF_DIR`, where are the web application configuration files ?
+ * `CONFIGS`, which configuration file(s) to load ?
+
+### Web application configuration
+
+For the web application configuration file, you have for pssible variables.
+
+ * `WORKING_DIR`, the script will change to this directory before launching
+Gunicorn.
+ * `APP_MODULE`, Python module and callable to run.
+ * `CONFIG_FILE`, Python Gunicorn configuration file path.
+ * `LOG_LEVEL`, logging level.
+
+### Init script
+
+Theses are the different actions allowed by the init script.
+
+ * `start`, starts all defined configuration files. The `RUN` variable must be
+setted to `yes`.
+ * `stop`, stops all defined configuration files.
+ * `restart`, restarts all defined configuration files.
+ * `reload`, reloads (kill -HUP) all defined configuration files.
+
+ * `start_one <conf>`, starts the given configuration file.
+ * `stop_one <conf>`, stops the given configuration file.
+ * `reload_one <conf>`, reloads the given configuration file.
+
+ * `inc <conf>`, increase worker for the given configuration file.
+ * `dec <conf>`, decrease worker for the given configuration file.
+
+
+
+License
+=======
+
+gunicorn-init is released under the MIT License. See the LICENSE file for
+details.
+
