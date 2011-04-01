@@ -1,4 +1,4 @@
-# Example taken form the http://gunicorn.org/configure.html
+# Example taken from the http://gunicorn.org/configure.html
 # page.
 
 import os

@@ -1,7 +1,7 @@
 gunicorn-init
 =============
 
-This prject provides an init script for the [Gunicorn](http://gunicorn.org)
+This project provides an init script for the [Gunicorn](http://gunicorn.org)
 project.
 
 You can run multiple python web application by setting multiple configuration
