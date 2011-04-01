@@ -47,7 +47,7 @@ Theses are the different actions allowed by the init script.
 setted to `yes`.
  * `stop`, stops all defined configuration files.
  * `restart`, restarts all defined configuration files.
- * `reload`, reloads (kill -HUP) all defined configuration files.
+ * `reload`, reloads (`kill -HUP`) all defined configuration files.
 
  * `start_one <conf>`, starts the given configuration file.
  * `stop_one <conf>`, stops the given configuration file.
@@ -61,6 +61,6 @@ setted to `yes`.
 License
 =======
 
-gunicorn-init is released under the MIT License. See the LICENSE file for
-details.
+'''gunicorn-init''' is released under the ''MIT License''. See the LICENSE file
+for details.
 
