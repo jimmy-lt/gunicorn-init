@@ -228,7 +228,7 @@ dec()
       if [ $? = 0 ]; then
         kill -TTOU $pid
         if [ $? = 0 ]; then
-          log_succes_msg "$name"
+          log_success_msg "$name"
         else
           log_failure_msg "$name"
           exit 1
