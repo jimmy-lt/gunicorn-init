@@ -25,12 +25,12 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 . /lib/lsb/init-functions
 
 GUNICORN="/usr/bin/gunicorn"
-[ -x $GUNICORN ] || log_failure_msg "Can't find $GUNICORN"
 
 if [ -f /etc/default/$NAME ]; then
   . /etc/default/$NAME
 fi
 
+[ -x $GUNICORN ] || log_failure_msg "Can't find $GUNICORN"
 
 
 start_one()
