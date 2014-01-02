@@ -28,6 +28,7 @@ variables to set:
  * `RUN <yes|no>`, should the script run on system boot ?
  * `CONF_DIR`, where are the web application configuration files ?
  * `CONFIGS`, which configuration file(s) to load ?
+ * `USE_VIRTUALENVS`, which configuration file(s) to load ?
 
 ### Web application configuration
 
@@ -38,6 +39,7 @@ Gunicorn.
  * `APP_MODULE`, Python module and callable to run.
  * `CONFIG_FILE`, Python Gunicorn configuration file path.
  * `LOG_LEVEL`, logging level.
+ * `VIRTUALENV`, path to the app virtualenv.
 
 ### Init script
 
