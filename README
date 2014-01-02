@@ -22,17 +22,18 @@ printed to `/var/log/gunicorn/<conf>.log`.
 
 ### Script configuration
 
-The script configuration file is `/etc/default/gunicorn`. You have three
+The script configuration file is `/etc/default/gunicorn`. You have the following
 variables to set:
 
  * `RUN <yes|no>`, should the script run on system boot ?
  * `CONF_DIR`, where are the web application configuration files ?
  * `CONFIGS`, which configuration file(s) to load ?
  * `USE_VIRTUALENVS`, which configuration file(s) to load ?
+ * `RUN_USER`, the user to run the gunicorn process
 
 ### Web application configuration
 
-For the web application configuration file, you have four possible variables:
+For the web application configuration file, you have these possible variables:
 
  * `WORKING_DIR`, the script will change to this directory before launching
 Gunicorn.

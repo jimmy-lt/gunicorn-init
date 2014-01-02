@@ -30,6 +30,15 @@ if [ -f /etc/default/$NAME ]; then
   . /etc/default/$NAME
 fi
 
+USER=`whoami`
+[ "$RUN_USER" ] && USER=$RUN_USER
+
+ 
+if [ ! -d $PID_DIR ]; then
+  mkdir $PID_DIR
+  chown $USER $PID_DIR
+fi
+
 [ -x $GUNICORN ] || [ "$USE_VIRTUALENVS" = "yes" ] || log_failure_msg "Can't find $GUNICORN"
 
 start_one()
@@ -78,9 +87,9 @@ start_one()
       log_action_end_msg 1 "Can't find $GUNICORN"
       return 1
     fi
- 
-    $GUNICORN $args --config=$CONFIG_FILE -- $APP_MODULE
-
+    
+    sudo -E -u $USER $GUNICORN $args --config=$CONFIG_FILE -- $APP_MODULE
+      
     for var in $CONFIG_VARS; do
       unset $var
     done
