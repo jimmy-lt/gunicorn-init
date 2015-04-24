@@ -15,7 +15,7 @@ DESC="Python WSGI HTTP Server"
 
 SCRIPTNAME="/etc/init.d/$NAME"
 
-CONFIG_VARS="APP_MODULE CONFIG_FILE LOG_LEVEL WORKING_DIR"
+CONFIG_VARS="APP_MODULE CONFIG_FILE LOG_LEVEL WORKING_DIR VIRTUALENV"
 
 PID_DIR="/var/run/$NAME"
 LOG_DIR="/var/log/$NAME"
@@ -30,8 +30,16 @@ if [ -f /etc/default/$NAME ]; then
   . /etc/default/$NAME
 fi
 
-[ -x $GUNICORN ] || log_failure_msg "Can't find $GUNICORN"
+USER=`whoami`
+[ "$RUN_USER" ] && USER=$RUN_USER
 
+ 
+if [ ! -d $PID_DIR ]; then
+  mkdir $PID_DIR
+  chown $USER $PID_DIR
+fi
+
+[ -x $GUNICORN ] || [ "$USE_VIRTUALENVS" = "yes" ] || log_failure_msg "Can't find $GUNICORN"
 
 start_one()
 {
@@ -69,9 +77,19 @@ start_one()
     fi
     [ "$WORKING_DIR" ] && cd $WORKING_DIR
     [ "$LOG_LEVEL" ] && args="$args --log-level=$LOG_LEVEL"
-
-    $GUNICORN $args --config=$CONFIG_FILE -- $APP_MODULE
-
+    
+    if  [ "$VIRTUALENV" ]; then
+      . $VIRTUALENV/bin/activate 
+      GUNICORN=$VIRTUALENV/bin/gunicorn
+    fi
+ 
+    if [ ! -x $GUNICORN ]; then
+      log_action_end_msg 1 "Can't find $GUNICORN"
+      return 1
+    fi
+    
+    sudo -E -u $USER $GUNICORN $args --config=$CONFIG_FILE -- $APP_MODULE
+      
     for var in $CONFIG_VARS; do
       unset $var
     done

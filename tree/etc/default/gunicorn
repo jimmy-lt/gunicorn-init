@@ -6,3 +6,9 @@ CONF_DIR=/etc/gunicorn
 
 # Which configuration file should I run?
 CONFIGS="example"
+
+# Run as user
+RUN_USER=gunicorn
+
+# Use virtualenvs to run gunicorns
+#USE_VIRTUALENVS=yes
